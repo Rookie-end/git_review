@@ -7,3 +7,31 @@ git diff <filename>
 
 git reset --hard ... 其中的...就是git log 检查出来的那个提交的码.
 git reflog 可以看到所有的提交id
+
+git checkout -- <filename> 这个命令可以用 暂存区(storge) 中的内容覆盖 工作区，如果自从上一次提交以后还没有add，那么就会完全恢复到修改之前的状态。
+
+git reset HEAD <filename> 这个命令可以用 master 区域的内容覆盖暂存区部分的内容。
+
+git checkout HEAD <filename> 这个命令会用 master 的内容覆盖 工作区 和 暂存区；
+
+如果想在github上添加一个远程库，那么可以：
+（1）在github上新建一个远程库,然后添加自己的公钥在github账户上
+（2）在本地新建一个git库，git init
+（3）git remote add origin ... 其中 ... 就是github上给的那个链接
+（4）有了内容后 git add;   git commit -m "...";  然后就可以 push 了
+（5）git push -u origin master 这个 -u 就是让我们在后续的 push 和 pull中可以不用添加那个 origin master这个了；
+
+
+如果我新开一条分支 dev，那么其实就是多了一个 dev指针指向master指针的位置，而且HEAD会指向dev，当继续做提交的时候 master 就不动了，而是 dev 继续向后延伸，当这个需要合并的时候其实也就是让 master指针指向dev所在的位置。
+创建分支的命令：
+（1）git checkout -b dev
+（2）git branch dev;   git checkout dev
+（3）其中 （1）的一条命令就相当于（2）的两条命令所起到的作用。
+因为checkout被用来撤销修改之类的，所以这里有点混淆，所以git最新版修改了分支的这个指令：
+（1）git switch -c dev
+（2）git branch dev;  git switch dev;
+查看当前分支：   git branch
+删除分支： git branch -d dev
+合并某分支到当前分支: git merge <BranchName>
+
+
